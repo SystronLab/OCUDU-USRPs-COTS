@@ -113,3 +113,35 @@ Once the phone is connected:
   - **Uplink Test**: `ping 10.45.0.1`
 - From the 5G core:
   - **Downlink Test**: `ping 10.45.1.2`
+
+## Prerequisites 
+
+If you get buffer warning while running gNB, run:
+
+```text
+sudo ip link set ens7f0 mtu 9000
+
+sudo sysctl -w net.core.rmem_max=24912805
+sudo sysctl -w net.core.wmem_max=24912805
+sudo sysctl -w net.core.rmem_default=24912805
+sudo sysctl -w net.core.wmem_default=24912805
+net.core.rmem_max = 24912805
+net.core.wmem_max = 24912805
+net.core.rmem_default = 24912805
+net.core.wmem_default = 24912805
+```
+
+If don't have Internet access on the UE after connection, run:
+
+```text
+sudo ip tuntap add name ogstun mode tun
+sudo ip addr add 10.45.0.1/16 dev ogstun
+sudo ip addr add 2001:db8:cafe::1/48 dev ogstun
+sudo ip link set ogstun up
+sudo sysctl -w net.ipv4.ip_forward=1
+sudo sysctl -w net.ipv6.conf.all.forwarding=1
+sudo iptables -t nat -A POSTROUTING -s 10.45.0.0/16 ! -o ogstun -j MASQUERADE
+sudo ip6tables -t nat -A POSTROUTING -s 2001:db8:cafe::/48 ! -o ogstun -j MASQUERADE
+sudo ufw disable
+sudo iptables -I INPUT -i ogstun -j ACCEPT
+```
