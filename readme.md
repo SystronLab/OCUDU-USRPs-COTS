@@ -1,6 +1,6 @@
-# srsRAN with USRP x310 and COTS UEs
+# OCUDU with USRP x310 and COTS UEs
 
-Guide to setup srsRAN with USRP x310 and Google Pixel
+Guide to setup OCUDU with USRP x310 and Google Pixel
 
 ## USRP Setup
 
@@ -29,7 +29,7 @@ If the SIM card reader is recognized, you should see **"Card inserted"**.
 
 ---
 
-The SIM programming section on the srsRAN website is outdated as of **23 Apr 2025**.
+The SIM programming section on the OCUDU website is outdated as of **23 Apr 2025**.
 
 Use the following repository to program the SIM:
 
@@ -78,7 +78,7 @@ pySIM-shell (MF/ADF.USIM/EF.UST)> ust_service_deactivate 125
 ## Pixel Phone Setup
 
 - MCC and MNC in the APN on the phone are auto-filled based on the first 5 digits of the IMSI.
-- The srsRAN website uses OnePlus 8T which connects better with roaming (PLMN: 90170).
+- The OCUDU website uses OnePlus 8T which connects better with roaming (PLMN: 90170).
 - For Pixel phones, roaming hacks are usually unnecessary. Use PLMN **00101** (MCC+MNC), and the IMSI must start with **00101**.
 
 1. Enable developer mode: Tap **Build Number** multiple times in phone settings.
